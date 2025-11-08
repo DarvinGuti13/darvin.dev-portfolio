@@ -1,0 +1,67 @@
+# =========================
+# Nuxt / Nitro build outputs
+# =========================
+.nuxt
+.nitro
+.output
+.cache
+dist
+.data
+
+# =========
+# Netlify
+# =========
+# Estado local del CLI y funciones en dev
+.netlify/
+
+# =================
+# Node & logs
+# =================
+node_modules/
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =================
+# TypeScript
+# =================
+*.tsbuildinfo
+
+# =================
+# Tests / coverage
+# =================
+coverage/
+.nyc_output/
+
+# =================
+# Linters caches
+# =================
+.eslintcache
+.stylelintcache
+
+# =================
+# Editors / OS junk
+# =================
+.DS_Store
+Thumbs.db
+.fleet/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# =================
+# Env files (keep example)
+# =================
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*
+!.env.example
+
