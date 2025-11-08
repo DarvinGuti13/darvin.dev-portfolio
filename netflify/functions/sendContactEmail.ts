@@ -1,21 +1,26 @@
 // netlify/functions/sendContactEmail.ts
-import { Resend } from 'Resend'
+import { Resend } from 'resend'
 import type { Handler } from '@netlify/functions'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-// Opcional: restringí a tu dominio en prod
-const ALLOW_ORIGIN = '*'
+
+const ALLOW_ORIGINS = new Set([
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'https://darvingutierrez-dev.netlify.app',
+])
+const ANY = '*'
 
 export const handler: Handler = async (event) => {
   // Preflight CORS
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 204, headers: corsHeaders(), body: '' }
+    return { statusCode: 204, headers: corsHeaders(event), body: '' }
   }
 
   try {
     if (event.httpMethod !== 'POST') {
-      return { statusCode: 405, headers: corsHeaders(), body: 'Method Not Allowed' }
+      return { statusCode: 405, headers: corsHeaders(event), body: 'Method Not Allowed' }
     }
 
     const body = safeJson(event.body)
@@ -26,14 +31,9 @@ export const handler: Handler = async (event) => {
     const honey = clean(body.honey)
     const since = Number(body.since ?? 0)
 
-    // Anti-spam básicos
-    if (honey) return json(400, { success: false, error: 'Spam detectado' })
-    if (since && Date.now() - since < 1500)
-      return json(400, { success: false, error: 'Demasiado rápido (posible bot)' })
-
-    if (!name || !email || !subject || !message) {
-      return json(400, { success: false, error: 'Faltan campos' })
-    }
+    if (honey) return json(event, 400, { success: false, error: 'Spam detectado' })
+    if (since && Date.now() - since < 1500) return json(event, 400, { success: false, error: 'Demasiado rápido (posible bot)' })
+    if (!name || !email || !subject || !message) return json(event, 400, { success: false, error: 'Faltan campos' })
 
     const when = new Date().toLocaleString('es-CR', { timeZone: 'America/Costa_Rica' })
     const referer = event.headers['referer'] || ''
@@ -59,43 +59,39 @@ export const handler: Handler = async (event) => {
     `
 
     const { data, error } = await resend.emails.send({
-      // Mientras verificás dominio, usá onboarding@resend.dev
-      from: 'Darvin Portfolio <onboarding@darvingutierrez-dev-netlify.app>',
-      to: ['darvinjafet13@gmail.com'], 
+      from: 'Darvin Portfolio <onboarding@resend.dev>', 
+      to: ['darvinjafet13@gmail.com'],
       replyTo: email,
       subject: `Nuevo mensaje – ${subject} (de ${name})`,
-      html
+      html,
     })
 
     if (error) {
       console.error('[Resend] Error:', error)
-      return json(500, { success: false, error: error.message })
+      return json(event, 500, { success: false, error: error.message })
     }
-
-    return json(200, { success: true, data })
+    return json(event, 200, { success: true, data })
   } catch (err: any) {
     console.error('[Function] Error:', err)
-    return json(500, { success: false, error: 'Error interno' })
+    return json(event, 500, { success: false, error: 'Error interno' })
   }
 }
 
 // Helpers
-function json(statusCode: number, body: any) {
-  return { statusCode, headers: corsHeaders(), body: JSON.stringify(body) }
+function json(event: any, statusCode: number, body: any) {
+  return { statusCode, headers: corsHeaders(event), body: JSON.stringify(body) }
 }
-function corsHeaders() {
+function corsHeaders(event: any) {
+  const origin = event.headers?.origin || ''
+  const allow = ALLOW_ORIGINS.has(origin) ? origin : ANY
   return {
-    'Access-Control-Allow-Origin': ALLOW_ORIGIN,
+    'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type'
+    'Access-Control-Allow-Headers': 'Content-Type',
   }
 }
-function safeJson(body?: string | null) {
-  try { return JSON.parse(body || '{}') } catch { return {} }
-}
-function clean(s?: string) {
-  return (s || '').toString().trim()
-}
+function safeJson(body?: string | null) { try { return JSON.parse(body || '{}') } catch { return {} } }
+function clean(s?: string) { return (s || '').toString().trim() }
 function escapeHtml(str: string) {
   return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
 }
