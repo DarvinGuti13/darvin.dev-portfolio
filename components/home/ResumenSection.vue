@@ -28,9 +28,9 @@ import education from '~/data/education';
         </a>
       </div>
 
-      <p class="mt-2 text-gray-600 md:text-lg">
+      <p class="mt-2 text-gray-600 md:text-lg text-justify">
         Desarrollo soluciones web enfocadas en performance, UX y mantenibilidad.
-Me gusta crear productos claros, rápidos y pensados para negocio: integraciones limpias, APIs bien estructuradas y frontends que se sienten fluidos.
+        Me gusta crear productos claros, rápidos y pensados para negocio: integraciones limpias, APIs bien estructuradas y frontends que se sienten fluidos.
       </p>
 
       <div class="mt-8 grid gap-12 md:grid-cols-2">
@@ -88,7 +88,7 @@ Me gusta crear productos claros, rápidos y pensados para negocio: integraciones
                 <h4 class="text-base font-semibold text-gray-900">{{ e.degree }}</h4>
                 <p class="text-sm italic text-gray-600">{{ e.institution }}</p>
                 <p class="text-sm text-gray-600">{{ e.period }}</p>
-                <p class="mt-2 text-sm text-gray-700 leading-relaxed">{{ e.description }}</p>
+                <p class="mt-2 text-sm text-gray-700 leading-relaxed text-justify">{{ e.description }}</p>
               </li>
             </ol>
           </section>
@@ -116,7 +116,7 @@ Me gusta crear productos claros, rápidos y pensados para negocio: integraciones
                 </h4>
                 <p class="text-sm text-gray-600">{{ exp.period }} — {{ exp.location }}</p>
 
-                <p class="mt-2 text-sm text-gray-700 leading-relaxed">
+                <p class="mt-2 text-sm text-gray-700 leading-relaxed text-justify">
                   {{ exp.summary }}
                 </p>
 
@@ -137,6 +137,20 @@ Me gusta crear productos claros, rápidos y pensados para negocio: integraciones
               </div>
             </li>
           </ol>
+                      <!-- Enlace a CV solo en mobile -->
+            <div class="mt-4 sm:hidden">
+              <a
+                href="/cv/Darvin-Gutierrez-CV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Abrir CV completo en una nueva pestaña"
+                class="inline-flex items-center gap-2 text-cyan-600 hover:text-cyan-700 font-semibold"
+              >
+                <span class="underline decoration-transparent hover:decoration-current">Full Resumen</span>
+                <Icon name="ph:arrow-up-right" size="18"
+                class="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </div>
         </div>
       </div>
     </div>

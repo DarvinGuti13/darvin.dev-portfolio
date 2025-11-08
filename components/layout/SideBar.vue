@@ -11,7 +11,7 @@ const year = new Date().getFullYear()
   <div class="flex flex-col h-full items-center py-6 overflow-y-auto">
     <!-- Avatar -->
     <div class="w-28 h-28 rounded-full overflow-hidden ring-4 ring-white/10">
-      <img src="/images/Profile.jpg" alt="Foto de perfil" class="w-full h-full object-cover" />
+      <img src="/images/profile.webp" alt="Foto de perfil" class="w-full h-full object-cover" />
     </div>
 
     <!-- Nombre -->

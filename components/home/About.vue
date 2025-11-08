@@ -7,7 +7,7 @@ const profile = {
   headline: 'Fullstack Developer',
   summary:
     'Transformo ideas en soluciones web robustas y escalables. Combinando la potencia de Django + REST en el backend y frontend moderno con Vue.js / React.js, creando interfaces rápidas y bien diseñadas. Mi enfoque es desarrollar productos que no solo funcionen, sino que se sientan fluidos, intuitivos y pensados para el usuario.',
-  photo: '/images/Profile.jpg',
+  photo: '/images/Profile.webp',
   location: 'Costa Rica'
 }
 

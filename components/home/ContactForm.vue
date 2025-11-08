@@ -98,7 +98,7 @@ async function onSubmit() {
           Contact
         </h2>
         <p class="mt-2 text-gray-600">
-          Contame tu idea y te respondo con una propuesta clara (alcance, tiempos y costo).
+          Cuentame tu idea y te respondo con una propuesta clara (alcance, tiempos y costo).
         </p>
       </header>
 
@@ -122,7 +122,7 @@ async function onSubmit() {
 
           <!-- banners -->
           <div v-if="sent === 'ok'" class="mb-4 rounded-xl bg-green-50 text-green-800 px-4 py-3 text-sm">
-            ¡Listo! Recibí tu mensaje y te respondo en menos de 24h.
+            !Mensaje enviado correctamente!. Te contactare en breve. 
           </div>
           <div v-if="sent === 'err'" class="mb-4 rounded-xl bg-red-50 text-red-800 px-4 py-3 text-sm">
             No se pudo enviar. Escribime directo a <a :href="emailHref" class="underline">{{ email }}</a>.

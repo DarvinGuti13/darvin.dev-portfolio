@@ -6,7 +6,7 @@ const projects: readonly ProjectRO[] = [
     title: 'Guanacaste Transfers & Tours',
     summary:
       'Sitio oficial para una empresa de transporte y tours en Guanacaste. Desarrollado con Nuxt 3, Tailwind y desplegado en Netlify, enfocado en rendimiento (Lighthouse 90+) y generación de contactos via WhatsApp y Email.',
-    cover: '/images/guanacaste.png',
+    cover: '/images/guanacaste.webp',
     tech: ['Nuxt 3', 'Tailwind', 'CI/CD', 'Resend API'],
     links: { demo: 'https://guanacastetransfersandtours.com' },
     official: true,
