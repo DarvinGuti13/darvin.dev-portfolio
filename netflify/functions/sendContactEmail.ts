@@ -60,8 +60,8 @@ export const handler: Handler = async (event) => {
 
     const { data, error } = await resend.emails.send({
       // Mientras verificás dominio, usá onboarding@resend.dev
-      from: 'Darvin Portfolio <onboarding@resend.dev>',
-      to: ['darvinjafet13@gmail.com'], // Cambiá al correo destino que prefieras
+      from: 'Darvin Portfolio <onboarding@darvingutierrez-dev-netlify.app>',
+      to: ['darvinjafet13@gmail.com'], 
       replyTo: email,
       subject: `Nuevo mensaje – ${subject} (de ${name})`,
       html
