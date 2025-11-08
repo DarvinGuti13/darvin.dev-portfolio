@@ -2,13 +2,14 @@
 
 [build]
   # Para sitios estáticos con Nuxt 3
-  command = "npx nuxi generate"
+  command = "npm run generate"   # o "npx nuxi generate"
   publish = "dist"
   functions = "netlify/functions"
 
 [functions]
   # Usa esbuild (TS/ESM) y empaca 'resend'
   node_bundler = "esbuild"
+  external_node_modules = ["resend"]
   
 # (Opcional pero recomendable) Redirección SPA por si usás rutas de cliente
 # Si prerenderás TODAS las páginas, podés quitar esta regla.
