@@ -3,7 +3,7 @@
 [build]
   # Para sitios estáticos con Nuxt 3
   command = "npx nuxi generate"
-  publish = ".output/public"
+  publish = "dist"
   functions = "netlify/functions"
 
 [functions]
